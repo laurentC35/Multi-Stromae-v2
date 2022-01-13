@@ -1,9 +1,10 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: multi-stromae
   annotations:
     kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
 spec:
   tls:
     - hosts:
@@ -13,6 +14,9 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: multi-stromae
-              servicePort: http
+              service:
+                name: multi-stromae
+                port:
+                  number: 80
