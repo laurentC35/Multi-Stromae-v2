@@ -4,4 +4,6 @@ RUN rm etc/nginx/conf.d/default.conf
 COPY nginx.conf etc/nginx/conf.d/
 
 # Start Nginx server
-CMD ["/bin/bash", "-c", "sed -i -e 's/$PORT/'\"$PORT\"'/g' /etc/nginx/conf.d/nginx.conf && nginx -g \"daemon off;\""]
+CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/nginx.conf && nginx -g 'daemon off;'
+
+
