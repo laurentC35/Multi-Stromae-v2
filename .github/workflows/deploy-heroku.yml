@@ -28,9 +28,7 @@ jobs:
     name: Docker Build and deploy App
     runs-on: ubuntu-latest
     steps:
-      - name: Clone source
-        run: |
-          git clone https://github.com/InseeFr/Stromae.git --branch v2-master --single-branch .
+      - uses: actions/checkout@v2
       - name: Download build
         id: download
         uses: actions/download-artifact@v2
@@ -42,6 +40,7 @@ jobs:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          DOCKERFILE_NAME: "heroku.Dockerfile"
           DOCKER_OPTIONS: "--no-cache"
         run: |
           echo ${HEROKU_API_KEY} | docker login \
@@ -49,6 +48,7 @@ jobs:
             registry.heroku.com \
             --password-stdin
           docker build \
+            --file ${DOCKERFILE_NAME} \
             ${DOCKER_OPTIONS} \
             --tag registry.heroku.com/${HEROKU_APP_NAME}/web .
           heroku container:push web --app ${HEROKU_APP_NAME}
