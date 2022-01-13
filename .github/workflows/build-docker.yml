@@ -9,6 +9,7 @@ jobs:
   multibuild:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: script Clone and clean Orbeon
         run: |
           chmod +x ./scripts/multi-clone.sh
