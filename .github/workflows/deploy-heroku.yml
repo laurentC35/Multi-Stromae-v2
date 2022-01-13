@@ -1,4 +1,4 @@
-name: Build Shiny Docker Image and Deploy to Heroku
+name: Build Docker Image and Deploy to Heroku
 
 on:
   push:
@@ -28,8 +28,6 @@ jobs:
     name: Docker Build and deploy App
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
       - name: Clone source
         run: |
           git clone https://github.com/InseeFr/Stromae.git --branch v2-master --single-branch .
