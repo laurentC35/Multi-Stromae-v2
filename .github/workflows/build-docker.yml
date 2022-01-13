@@ -19,7 +19,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - run: |
+      - name: Build apps
+        run: |
           chmod +x ./scripts/multi-build.sh
           ./scripts/multi-build.sh
       - name: Upload multi-build
