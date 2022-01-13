@@ -6,6 +6,26 @@ on:
       - main
 
 jobs:
+  multibuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: script Clone and clean Orbeon
+        run: |
+          chmod +x ./script/multi-clone.sh
+          ./script/multi-clone.sh
+        shell: bash
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: |
+          chmod +x ./script/multi-build.sh
+          ./script/multi-build.sh
+      - name: Upload build
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: build
   build:
     runs-on: ubuntu-latest
     steps:
