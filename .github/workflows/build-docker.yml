@@ -22,7 +22,7 @@ jobs:
       - run: |
           chmod +x ./scripts/multi-build.sh
           ./scripts/multi-build.sh
-      - name: Upload build
+      - name: Upload multi-build
         uses: actions/upload-artifact@v2
         with:
           name: build
