@@ -6,7 +6,7 @@
 set -e
 
 function multiClone(){
-    for version in $(../jq-win64.exe -r '.apps[] | .version' ../apps.json); do
+    for version in $(jq -r '.apps[] | .version' apps.json); do
         git clone https://github.com/InseeFr/Stromae --branch $version --single-branch $version
     done
 }
