@@ -1,9 +1,9 @@
 FROM nginx
 ADD build /usr/share/nginx/html
 RUN rm etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/nginx.template
+COPY nginx.conf etc/nginx/conf.d/
 
 # Start Nginx server
-CMD ["/bin/sh", "-c", "envsubst < /etc/nginx/nginx.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+CMD ["/bin/sh", "-c", "nginx -g \"daemon off;\""]
 
 
