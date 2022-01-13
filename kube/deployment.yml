@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: multi-stromae
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multi-stromae
+  template:
+    metadata:
+      labels:
+        app: multi-stromae
+    spec:
+      containers:
+        - name: multi-stromae
+          image: laurentc35/multi-stromae:latest
