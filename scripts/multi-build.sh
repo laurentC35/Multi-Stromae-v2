@@ -5,11 +5,12 @@ set -e
 function multiBuild(){
     mkdir build
     for version in $(jq -r '.apps[] | .version' apps.json); do
-        echo "Build Stromae $version"
+        echo "Build Stromae $version"        
+        folder="${version//\./'-'}"
         cd $version
+        PUBLIC_URL="/$folder"
         yarn && yarn build        
         cd ..
-        folder="${version//\./'-'}"
         mv $version/build build/$folder
     done
     
