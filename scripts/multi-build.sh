@@ -3,7 +3,12 @@
 set -e
 
 function multiBuild(){
-    mkdir build
+    echo "Build main app"
+    mkdir build && mkdir build/app
+    cd app
+    yarn && yarn PUBLIC_URL=/app build
+    cd ..
+    mv app/build/* build/app
     for app in $(jq '.apps | keys | .[]' apps.json); do    
         version=$(jq -r ".apps[$app] | .version" apps.json)
         lunaticVersion=$(jq -r ".apps[$app] | .lunaticVersion" apps.json)
