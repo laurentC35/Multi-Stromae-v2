@@ -53,10 +53,12 @@ const QuestionnaireForm = () => {
   const [readonly, setReadonly] = useState(false);
   const [version, setVersion] = useState('');
 
+  const versionTransform = version.replace(/\./g, '-');
+
   const [selected, setSelected] = useState('');
 
   const { apps } = useContext(AppContext);
-  const defaultVersion = apps[0].lunaticVersion;
+  const defaultVersion = apps[0].lunaticVersion.replace(/\./g, '-');
 
   useEffect(() => {
     setVersion(selected ? defaultVersion : selected);
@@ -72,10 +74,11 @@ const QuestionnaireForm = () => {
   }, [selected]);
 
   const goToQuestionnaire = e => {
-    window.location.href = `${window.location.origin}/${version.replace(
-      /\./g,
-      '-'
-    )}/visualize?questionnaire=${encodeURIComponent(questionnaire)}
+    window.location.href = `${
+      window.location.origin
+    }/${versionTransform}/visualize?questionnaire=${encodeURIComponent(
+      questionnaire
+    )}
       ${metadata ? `&metadata=${encodeURIComponent(metadata)}` : ''}${
       data ? `&data=${encodeURIComponent(data)}` : ''
     }${readonly ? `&readonly=${readonly}` : ''}`;
