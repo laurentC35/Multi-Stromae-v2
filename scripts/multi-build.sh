@@ -6,7 +6,7 @@ function multiBuild(){
     echo "Build main app"
     mkdir build && mkdir build/app
     cd app
-    yarn && yarn PUBLIC_URL=/app build
+    yarn && PUBLIC_URL=/app yarn build
     cd ..
     mv app/build/* build/app
     for app in $(jq '.apps | keys | .[]' apps.json); do    
