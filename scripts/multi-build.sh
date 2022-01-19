@@ -4,15 +4,19 @@ set -e
 
 function multiBuild(){
     mkdir build
-    for version in $(jq -r '.apps[] | .version' apps.json); do
-        echo "Build Stromae $version"        
-        folder="${version//\./'-'}"
-        cd $version        
-        yarn && PUBLIC_URL=/$folder yarn build        
+    for app in $(./jq-win64.exe '.apps | keys | .[]' apps.json); do    
+        version=$(./jq-win64.exe -r ".apps[$app] | .version" apps.json)
+        lunaticVersion=$(./jq-win64.exe -r ".apps[$app] | .lunaticVersion" apps.json)
+        echo "Build Stromae $version with lunatic $lunaticVersion"
+        folder="${lunaticVersion//\./'-'}"
+        cd $lunaticVersion
+        yarn
+        echo "Install specific version of lunatic : $lunaticVersion"
+        yarn add @inseefr/lunatic@$lunaticVersion
+        PUBLIC_URL=/$folder yarn build
         cd ..
-        mv $version/build build/$folder
+        mv $lunaticVersion/build build/$folder
     done
-    
 }
 
 multiBuild

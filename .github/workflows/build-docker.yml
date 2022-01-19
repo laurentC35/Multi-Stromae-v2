@@ -15,11 +15,11 @@ jobs:
           chmod +x ./scripts/multi-clone.sh
           ./scripts/multi-clone.sh
         shell: bash
-      - name: Multi build using Node.js 14
+      - name: Set up Node.js 14
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: Build apps
+      - name: Multi build
         run: |
           chmod +x ./scripts/multi-build.sh
           ./scripts/multi-build.sh
@@ -28,23 +28,6 @@ jobs:
         with:
           name: build
           path: build
-  # build:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Clone source
-  #       run: |
-  #         git clone https://github.com/InseeFr/Stromae.git --branch v2-master --single-branch .
-  #     - name: Use Node.js 14
-  #       uses: actions/setup-node@v1
-  #       with:
-  #         node-version: 14
-  #     - run: yarn
-  #     - run: yarn build
-  #     - name: Upload build
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: build
-  #         path: build
   docker:
     needs: multibuild
     runs-on: ubuntu-latest
