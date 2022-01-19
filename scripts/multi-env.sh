@@ -19,12 +19,18 @@ function replaceEnvVars(){
     export $varname=$value
     
     done < ../.env
-    envsubst < "./configuration.json" > "configuration.temp"
-    envsubst < "./build-configuration.json" > "build-configuration.temp"
-    envsubst < "./oidc.json" > "oidc.temp"
-    mv configuration.temp configuration.json
-    mv build-configuration.temp build-configuration.json
-    mv oidc.temp oidc.json
+    if test -f "./configuration.json"; then
+        envsubst < "./configuration.json" > "configuration.temp"
+        mv configuration.temp configuration.json
+    fi
+    if test -f "./build-configuration.json"; then
+        envsubst < "./build-configuration.json" > "build-configuration.temp"
+        mv build-configuration.temp build-configuration.json
+    fi
+    if test -f "./oidc.json"; then
+        envsubst < "./oidc.json" > "oidc.temp"
+        mv oidc.temp oidc.json
+    fi
 }
 
 for app in */ ; do
