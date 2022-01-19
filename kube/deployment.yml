@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: multi-stromae
-          image: inseefr/stromae:2.1.49
+          image: laurentc35/multi-stromae:latest
           ports:
             - name: http
               containerPort: 80

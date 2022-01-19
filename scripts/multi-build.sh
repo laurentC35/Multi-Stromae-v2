@@ -9,6 +9,7 @@ function multiBuild(){
     yarn && PUBLIC_URL=/app yarn build
     cd ..
     mv app/build/* build/app
+    cp apps.json build/app/apps.json
     for app in $(jq '.apps | keys | .[]' apps.json); do    
         version=$(jq -r ".apps[$app] | .version" apps.json)
         lunaticVersion=$(jq -r ".apps[$app] | .lunaticVersion" apps.json)

@@ -58,17 +58,24 @@ const QuestionnaireForm = () => {
   const [selected, setSelected] = useState('');
 
   const { apps } = useContext(AppContext);
-  const defaultVersion = apps[0].lunaticVersion.replace(/\./g, '-');
+  const defaultVersion = apps[0].lunaticVersion;
+  const defaultVersionTransform = defaultVersion.replace(/\./g, '-');
 
   useEffect(() => {
     setVersion(selected ? defaultVersion : selected);
     setQuestionnaire(
-      selected ? QUESTIONNAIRE_EXAMPLE_URL(selected, defaultVersion) : selected
+      selected
+        ? QUESTIONNAIRE_EXAMPLE_URL(selected, defaultVersionTransform)
+        : selected
     );
     setMetadata(
-      selected ? METADATA_EXAMPLE_URL(selected, defaultVersion) : selected
+      selected
+        ? METADATA_EXAMPLE_URL(selected, defaultVersionTransform)
+        : selected
     );
-    setData(selected ? DATA_EXAMPLE_URL(selected, defaultVersion) : selected);
+    setData(
+      selected ? DATA_EXAMPLE_URL(selected, defaultVersionTransform) : selected
+    );
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
@@ -95,7 +102,10 @@ const QuestionnaireForm = () => {
           id="questionnaire-url-form"
           required
           label={visualizeDictionary.labelQuest}
-          placeholder={QUESTIONNAIRE_EXAMPLE_URL(SIMPSONS, defaultVersion)}
+          placeholder={QUESTIONNAIRE_EXAMPLE_URL(
+            SIMPSONS,
+            defaultVersionTransform
+          )}
           helperText={visualizeDictionary.helperTextQuest}
           fullWidth
           margin="normal"
@@ -111,7 +121,7 @@ const QuestionnaireForm = () => {
         <TextField
           id="metadata-url-form"
           label={visualizeDictionary.labelMetadata}
-          placeholder={METADATA_EXAMPLE_URL(SIMPSONS, defaultVersion)}
+          placeholder={METADATA_EXAMPLE_URL(SIMPSONS, defaultVersionTransform)}
           helperText={visualizeDictionary.helperTextMetadata}
           fullWidth
           margin="normal"
@@ -127,7 +137,7 @@ const QuestionnaireForm = () => {
         <TextField
           id="data-url-form"
           label={visualizeDictionary.labelData}
-          placeholder={DATA_EXAMPLE_URL(SIMPSONS, defaultVersion)}
+          placeholder={DATA_EXAMPLE_URL(SIMPSONS, defaultVersionTransform)}
           helperText={visualizeDictionary.helperTextData}
           fullWidth
           margin="normal"
