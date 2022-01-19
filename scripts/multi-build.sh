@@ -4,9 +4,9 @@ set -e
 
 function multiBuild(){
     mkdir build
-    for app in $(./jq-win64.exe '.apps | keys | .[]' apps.json); do    
-        version=$(./jq-win64.exe -r ".apps[$app] | .version" apps.json)
-        lunaticVersion=$(./jq-win64.exe -r ".apps[$app] | .lunaticVersion" apps.json)
+    for app in $(jq '.apps | keys | .[]' apps.json); do    
+        version=$(jq -r ".apps[$app] | .version" apps.json)
+        lunaticVersion=$(jq -r ".apps[$app] | .lunaticVersion" apps.json)
         echo "Build Stromae $version with lunatic $lunaticVersion"
         folder="${lunaticVersion//\./'-'}"
         cd $lunaticVersion
